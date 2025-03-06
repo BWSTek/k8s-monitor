@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: "caddy"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # For Caddy basic auth
+    caddy.ingress.kubernetes.io/basicauth: "prometheus-basic-auth"
+spec:
+  tls:
+  - hosts:
+    - prometheus.{DOMAIN_NAME}
+    secretName: prometheus-tls
+  rules:
+  - host: prometheus.{DOMAIN_NAME}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-server
+            port:
+              number: 80

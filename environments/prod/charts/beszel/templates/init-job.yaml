@@ -1,0 +1,63 @@
+{{- if .Values.agent.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: beszel-init-job
+  labels:
+    app: beszel
+    component: init-job
+spec:
+  backoffLimit: 10
+  template:
+    metadata:
+      labels:
+        app: beszel
+        component: init-job
+    spec:
+      serviceAccountName: beszel-init-sa
+      restartPolicy: OnFailure
+      containers:
+      - name: init-container
+        image: curlimages/curl:7.82.0
+        command:
+        - /bin/sh
+        - -c
+        - |
+          # Wait for Beszel server to be ready
+          echo "Waiting for Beszel server to be available..."
+          until curl -s --fail http://beszel:8090/api/health; do
+            echo "Beszel server not ready yet. Waiting..."
+            sleep 5
+          done
+          
+          echo "Beszel server is up. Fetching public key..."
+          
+          # Make API call to get the public key (endpoint might need to be adjusted based on Beszel API)
+          # This is placeholder logic - you'll need to adjust based on actual Beszel API
+          PUBLIC_KEY=$(curl -s -X POST http://beszel:8090/api/system/register | jq -r '.key')
+          
+          if [ -z "$PUBLIC_KEY" ] || [ "$PUBLIC_KEY" = "null" ]; then
+            echo "Failed to get public key. Exiting."
+            exit 1
+          fi
+          
+          echo "Retrieved public key. Creating secret..."
+          
+          # Store the key in a file for kubectl
+          echo "$PUBLIC_KEY" > /tmp/beszel-key
+          
+          # Create the secret using kubectl
+          kubectl create secret generic beszel-agent-key \
+            -n monitoring \
+            --from-file=key=/tmp/beszel-key \
+            --dry-run=client -o yaml | kubectl apply -f -
+            
+          echo "Secret created successfully."
+        volumeMounts:
+        - name: kube-config
+          mountPath: /root/.kube
+      volumes:
+      - name: kube-config
+        configMap:
+          name: beszel-kubeconfig
+{{- end }}

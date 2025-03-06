@@ -1,0 +1,19 @@
+{{- if .Values.server.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: beszel
+  labels:
+    app: beszel
+    component: server
+spec:
+  type: {{ .Values.server.service.type }}
+  ports:
+  - port: {{ .Values.server.service.port }}
+    targetPort: 8090
+    protocol: TCP
+    name: http
+  selector:
+    app: beszel
+    component: server
+{{- end }}

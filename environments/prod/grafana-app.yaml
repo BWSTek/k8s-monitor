@@ -1,0 +1,515 @@
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"grafana","namespace":"argocd"},"spec":{"destination":{"namespace":"monitoring","server":"https://kubernetes.default.svc"},"project":"monitor-project","source":{"helm":{"valueFiles":["values.yaml"]},"path":"environments/prod/charts/grafana","repoURL":"http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2025-03-02T17:27:59Z"
+  generation: 783
+  managedFields:
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+      f:spec:
+        .: {}
+        f:destination:
+          .: {}
+          f:namespace: {}
+          f:server: {}
+        f:project: {}
+        f:source:
+          .: {}
+          f:helm:
+            .: {}
+            f:valueFiles: {}
+          f:path: {}
+          f:repoURL: {}
+          f:targetRevision: {}
+        f:syncPolicy:
+          .: {}
+          f:automated:
+            .: {}
+            f:prune: {}
+            f:selfHeal: {}
+          f:syncOptions: {}
+    manager: HashiCorp
+    operation: Update
+    time: "2025-03-02T17:30:14Z"
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        .: {}
+        f:conditions: {}
+        f:controllerNamespace: {}
+        f:health:
+          .: {}
+          f:lastTransitionTime: {}
+          f:status: {}
+        f:history: {}
+        f:operationState:
+          .: {}
+          f:finishedAt: {}
+          f:message: {}
+          f:operation:
+            .: {}
+            f:initiatedBy:
+              .: {}
+              f:automated: {}
+            f:retry:
+              .: {}
+              f:limit: {}
+            f:sync:
+              .: {}
+              f:prune: {}
+              f:revision: {}
+              f:syncOptions: {}
+          f:phase: {}
+          f:startedAt: {}
+          f:syncResult:
+            .: {}
+            f:resources: {}
+            f:revision: {}
+            f:source:
+              .: {}
+              f:helm:
+                .: {}
+                f:valueFiles: {}
+              f:path: {}
+              f:repoURL: {}
+              f:targetRevision: {}
+        f:reconciledAt: {}
+        f:resources: {}
+        f:sourceHydrator: {}
+        f:sourceType: {}
+        f:summary:
+          .: {}
+          f:images: {}
+        f:sync:
+          .: {}
+          f:comparedTo:
+            .: {}
+            f:destination:
+              .: {}
+              f:namespace: {}
+              f:server: {}
+            f:source:
+              .: {}
+              f:helm:
+                .: {}
+                f:valueFiles: {}
+              f:path: {}
+              f:repoURL: {}
+              f:targetRevision: {}
+          f:revision: {}
+          f:status: {}
+    manager: argocd-application-controller
+    operation: Update
+    time: "2025-03-03T03:28:17Z"
+  name: grafana
+  namespace: argocd
+  resourceVersion: "1042826"
+  uid: a416ee47-76c5-4eb7-8507-21c58b57bb18
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitor-project
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: environments/prod/charts/grafana
+    repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  conditions:
+  - lastTransitionTime: "2025-03-03T03:15:18Z"
+    message: Application has 20 orphaned resources
+    type: OrphanedResourceWarning
+  controllerNamespace: argocd
+  health:
+    status: Progressing
+  history:
+  - deployStartedAt: "2025-03-03T01:41:51Z"
+    deployedAt: "2025-03-03T01:41:52Z"
+    id: 38
+    initiatedBy:
+      automated: true
+    revision: 215e5045f791a9d8043129b23ae99852e9437515
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T01:50:57Z"
+    deployedAt: "2025-03-03T01:50:57Z"
+    id: 39
+    initiatedBy:
+      automated: true
+    revision: adae2af7332fa6c173c45e754cab4f92452f977b
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T02:45:10Z"
+    deployedAt: "2025-03-03T02:45:10Z"
+    id: 40
+    initiatedBy:
+      automated: true
+    revision: bf08a39d6fed22bba8cf6f94295a8182c1469526
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T02:52:27Z"
+    deployedAt: "2025-03-03T02:52:28Z"
+    id: 41
+    initiatedBy:
+      automated: true
+    revision: 88466faedec9acdfc8e01894dfb2e590093c73dd
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T02:54:56Z"
+    deployedAt: "2025-03-03T02:54:56Z"
+    id: 42
+    initiatedBy:
+      username: admin
+    revision: 88466faedec9acdfc8e01894dfb2e590093c73dd
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T03:01:37Z"
+    deployedAt: "2025-03-03T03:01:37Z"
+    id: 43
+    initiatedBy:
+      automated: true
+    revision: 555fc816f10ac9ff1953d56d4ae7663c3f5f374f
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T03:07:31Z"
+    deployedAt: "2025-03-03T03:07:32Z"
+    id: 44
+    initiatedBy:
+      automated: true
+    revision: 08b1508bbb7fab313fd8d8e605d04ca544ce2ea0
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T03:10:58Z"
+    deployedAt: "2025-03-03T03:10:59Z"
+    id: 45
+    initiatedBy:
+      automated: true
+    revision: c99489f4ec50f061046b8b640e8aefc8f8d2f65c
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T03:15:24Z"
+    deployedAt: "2025-03-03T03:15:24Z"
+    id: 46
+    initiatedBy:
+      automated: true
+    revision: 1095ccf779d9948d8c47be75b1739e906ca283a5
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  - deployStartedAt: "2025-03-03T03:28:16Z"
+    deployedAt: "2025-03-03T03:28:17Z"
+    id: 47
+    initiatedBy:
+      automated: true
+    revision: f444afa27c9d018468fd909d84bd60b2b3b0a139
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: environments/prod/charts/grafana
+      repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+      targetRevision: main
+  operationState:
+    finishedAt: "2025-03-03T03:28:17Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        prune: true
+        revision: f444afa27c9d018468fd909d84bd60b2b3b0a139
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2025-03-03T03:28:16Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: ServiceAccount
+        message: serviceaccount/grafana unchanged
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Secret
+        message: secret/grafana configured
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/custom-homepage-dashboard unchanged
+        name: custom-homepage-dashboard
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/grafana-config-dashboards unchanged
+        name: grafana-config-dashboards
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/grafana unchanged
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/grafana-dashboards-default configured
+        name: grafana-dashboards-default
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: PersistentVolumeClaim
+        message: persistentvolumeclaim/grafana unchanged
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: ClusterRole
+        message: clusterrole.rbac.authorization.k8s.io/grafana-clusterrole reconciled.
+          clusterrole.rbac.authorization.k8s.io/grafana-clusterrole unchanged
+        name: grafana-clusterrole
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: ClusterRoleBinding
+        message: clusterrolebinding.rbac.authorization.k8s.io/grafana-clusterrolebinding
+          reconciled. clusterrolebinding.rbac.authorization.k8s.io/grafana-clusterrolebinding
+          unchanged
+        name: grafana-clusterrolebinding
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: Role
+        message: role.rbac.authorization.k8s.io/grafana reconciled. role.rbac.authorization.k8s.io/grafana
+          configured
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Running
+        kind: RoleBinding
+        message: rolebinding.rbac.authorization.k8s.io/grafana reconciled. rolebinding.rbac.authorization.k8s.io/grafana
+          unchanged
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/grafana unchanged
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/grafana configured
+        name: grafana
+        namespace: monitoring
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: f444afa27c9d018468fd909d84bd60b2b3b0a139
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+        path: environments/prod/charts/grafana
+        repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+        targetRevision: main
+  reconciledAt: "2025-03-03T03:28:17Z"
+  resources:
+  - kind: ConfigMap
+    name: custom-homepage-dashboard
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - kind: ConfigMap
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - kind: ConfigMap
+    name: grafana-config-dashboards
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - kind: ConfigMap
+    name: grafana-dashboards-default
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: PersistentVolumeClaim
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - kind: ServiceAccount
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      message: 'Waiting for rollout to finish: 0 of 1 updated replicas are available...'
+      status: Progressing
+    kind: Deployment
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: grafana-clusterrole
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: grafana-clusterrolebinding
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: Role
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    name: grafana
+    namespace: monitoring
+    status: Synced
+    version: v1
+  sourceType: Helm
+  summary:
+    images:
+    - docker.io/curlimages/curl:8.9.1
+    - docker.io/grafana/grafana:11.5.2
+    - quay.io/kiwigrid/k8s-sidecar:1.30.0
+  sync:
+    comparedTo:
+      destination:
+        namespace: monitoring
+        server: https://kubernetes.default.svc
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+        path: environments/prod/charts/grafana
+        repoURL: http://gitea-http.gitea.svc.cluster.local:3000/jordan/k8s-monitor
+        targetRevision: main
+    revision: f444afa27c9d018468fd909d84bd60b2b3b0a139
+    status: Synced

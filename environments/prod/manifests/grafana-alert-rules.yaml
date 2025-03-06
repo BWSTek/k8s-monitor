@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alert-rules
+  namespace: monitoring
+  labels:
+    grafana_alert_rules: "1"
+data:
+  node-alerts.yaml: |
+    apiVersion: 1
+    groups:
+      - name: Node Alerts
+        folder: System
+        interval: 1m
+        rules:
+          - uid: high_cpu_usage
+            title: High CPU Usage
+            condition: C
+            data:
+              - refId: A
+                relativeTimeRange:
+                  from: 600
+                  to: 0
+                datasourceUid: Prometheus
+                model:
+                  expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+                  instant: false
+                  intervalMs: 1000
+                  maxDataPoints: 43200
+              - refId: B
+                relativeTimeRange:
+                  from: 600
+                  to: 0
+                datasourceUid: "-100"
+                model:
+                  expression: A
+                  type: reduce
+                  reducer: last
+              - refId: C
+                relativeTimeRange:
+                  from: 600
+                  to: 0
+                datasourceUid: "-100"
+                model:
+                  expression: B
+                  type: threshold
+                  conditions:
+                    - evaluator:
+                        params: [80]
+                        type: gt
+            noDataState: OK
+            for: 5m
+            annotations:
+              summary: "High CPU usage detected"
+            labels:
+              severity: warning
+  pod-alerts.json: |
+    {
+      "groups": [
+        {
+          "name": "Kubernetes Alerts",
+          "folder": "Kubernetes",
+          "interval": "60s",
+          "rules": [
+            {
+              "uid": "pod_restarts",
+              "title": "Pod Restarts",
+              "condition": "B",
+              "data": [
+                {
+                  "refId": "A",
+                  "datasourceUid": "Prometheus",
+                  "model": {
+                    "expr": "changes(kube_pod_status_container_restarts_total[15m]) > 3",
+                    "instant": false,
+                    "intervalMs": 1000,
+                    "maxDataPoints": 43200
+                  }
+                },
+                {
+                  "refId": "B",
+                  "datasourceUid": "-100",
+                  "model": {
+                    "conditions": [
+                      {
+                        "evaluator": {
+                          "params": [0],
+                          "type": "gt"
+                        },
+                        "operator": {
+                          "type": "and"
+                        },
+                        "query": {
+                          "params": ["A"]
+                        },
+                        "reducer": {
+                          "type": "last"
+                        },
+                        "type": "query"
+                      }
+                    ],
+                    "datasource": {
+                      "type": "__expr__",
+                      "uid": "-100"
+                    }
+                  }
+                }
+              ],
+              "noDataState": "OK",
+              "for": "10m",
+              "annotations": {
+                "summary": "Pod {{$labels.pod}} in namespace {{$labels.namespace}} is restarting frequently"
+              },
+              "labels": {
+                "severity": "warning"
+              }
+            }
+          ]
+        }
+      ]
+    }

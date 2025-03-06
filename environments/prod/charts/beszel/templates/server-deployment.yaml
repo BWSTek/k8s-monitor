@@ -1,0 +1,56 @@
+{{- if .Values.server.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beszel
+  namespace: monitoring
+  labels:
+    app: beszel
+    component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beszel
+      component: server
+  template:
+    metadata:
+      labels:
+        app: beszel
+        component: server
+    spec:
+      containers:
+      - name: beszel
+        image: henrygd/beszel:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8090
+          name: http
+        volumeMounts:
+        - name: data
+          mountPath: /beszel_data
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 300m
+            memory: 256Mi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: beszel-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: beszel-data
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: nfs-client
+  resources:
+    requests:
+      storage: 5Gi
+{{- end }}

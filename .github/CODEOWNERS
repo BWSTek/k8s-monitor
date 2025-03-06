@@ -1,0 +1,12 @@
+# Default owners for everything in the repo
+* @jfiraben
+
+# Terraform files owned by infrastructure team
+*.tf @jfiraben
+
+# Kubernetes manifests owned by platform team
+/charts/ @jfiraben
+*.yaml @jfiraben
+
+# Documentation changes require docs review
+*.md @jfiraben

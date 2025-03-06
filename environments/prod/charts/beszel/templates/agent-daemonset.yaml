@@ -1,0 +1,56 @@
+{{- if .Values.agent.enabled }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: beszel-agent
+  namespace: monitoring
+  labels:
+    app: beszel
+    component: agent
+  annotations:
+    # This annotation ensures the DaemonSet is only deployed after the secret exists
+    secret.kubernetes.io/depends-on: "beszel-agent-key"
+spec:
+  selector:
+    matchLabels:
+      app: beszel
+      component: agent
+  template:
+    metadata:
+      labels:
+        app: beszel
+        component: agent
+    spec:
+      hostNetwork: true
+      initContainers:
+      - name: wait-for-key
+        image: bitnami/kubectl:1.25
+        command:
+        - /bin/sh
+        - -c
+        - |
+          until kubectl get secret beszel-agent-key -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace); do
+            echo "Waiting for beszel-agent-key secret to be created..."
+            sleep 5
+          done
+      containers:
+      - name: beszel-agent
+        image: henrygd/beszel-agent:latest
+        env:
+        - name: PORT
+          value: "45876"
+        - name: KEY
+          valueFrom:
+            secretKeyRef:
+              name: beszel-agent-key
+              key: key
+        - name: BESZEL_SERVER
+          value: "beszel.monitoring.svc.cluster.local:8090"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+{{- end }}

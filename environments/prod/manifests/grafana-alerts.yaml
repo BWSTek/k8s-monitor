@@ -1,0 +1,33 @@
+# Apply this separately after Grafana is running
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-alert-rules
+  namespace: monitoring
+  labels:
+    grafana_alert_rules: "1"
+data:
+  alert-rules.yaml: |
+    apiVersion: 1
+    groups:
+      - name: Node Alerts
+        folder: System
+        interval: 60s
+        rules:
+          - uid: high_cpu_usage
+            title: High CPU Usage
+            condition: B
+            data:
+              - refId: A
+                datasourceUid: Prometheus
+                model:
+                  expr: '100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85'
+                  instant: false
+                  intervalMs: 1000
+                  maxDataPoints: 43200
+            noDataState: OK
+            for: 5m
+            annotations:
+              summary: "High CPU usage on instance"
+            labels:
+              severity: warning

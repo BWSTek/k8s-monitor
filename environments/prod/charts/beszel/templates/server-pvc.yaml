@@ -1,0 +1,16 @@
+{{- if .Values.server.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: beszel-data
+  labels:
+    app: beszel
+    component: server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.server.persistence.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.server.persistence.size }}
+{{- end }}

@@ -1,0 +1,19 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - qemu-guest-agent
+
+# Create jordan user
+users:
+  - name: jordan
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+
+# Disable password authentication
+ssh_pwauth: false
+
+runcmd:
+  - systemctl start qemu-guest-agent
+  - systemctl enable qemu-guest-agent
