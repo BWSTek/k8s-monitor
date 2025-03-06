@@ -7,4 +7,4 @@ type: Opaque
 data:
   # This is "admin:admin" - change this to a better password
   # You can generate this with: echo -n "admin:$(openssl passwd -apr1 YOUR_PASSWORD)" | base64
-  auth: YWRtaW46JGFwcjEkUmFuZG9tUyR3VHFUUDFGVFUxWmZiMmZTMFVGSkwxCg==
+  auth: ${BASE64_ENCODED_AUTH}
