@@ -1,12 +1,12 @@
 # Default owners for everything in the repo
-* @'bwstek@tuta.com'
+* @BWSTek
 
 # Terraform files owned by infrastructure team
-*.tf @'bwstek@tuta.com'
+*.tf @BWSTek
 
 # Kubernetes manifests owned by platform team
-/charts/ @'bwstek@tuta.com'
-*.yaml @'bwstek@tuta.com'
+/charts/ @BWSTek
+*.yaml @BWSTek
 
 # Documentation changes require docs review
-*.md @'bwstek@tuta.com'
+*.md @BWSTek
